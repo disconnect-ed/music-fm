@@ -1,0 +1,12 @@
+.artistslist-card {
+    max-width: 174px;
+    margin: 0 auto;
+}
+
+.artistslist-card__img {
+    position: relative;
+}
+
+.artistslist-card__info {
+    text-align: center;
+}

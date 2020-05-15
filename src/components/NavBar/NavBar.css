@@ -1,0 +1,92 @@
+.nav-title {
+    color: white;
+}
+
+.nav-list ul li a {
+    padding-left: 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    position: relative;
+    padding-right: 10px;
+}
+
+.nav-list__link_custom:after {
+    display: block;
+    content: '';
+    position: absolute;
+    border: 5px solid transparent;
+    border-top: 5px solid white;
+    top: 50%;
+    right: -7px;
+}
+
+.nav-list__link_custom {
+
+}
+
+.nav-list ul {
+    list-style: none;
+    display: flex;
+}
+
+.nav-list ul li {
+    display: block;
+    position: relative;
+}
+
+.active {
+    color: red !important;
+}
+
+.nav-menu-wrap {
+    flex-direction: column;
+    position: fixed;
+    background-color: #343A40 !important;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 25px;
+    padding-right: 100px;
+}
+
+.btn-nav {
+    position: absolute;
+    right: 16px;
+    top: 12px;
+}
+
+.btn-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;color: black;
+}
+
+.nav-list-hover {
+    display: none;
+    background-color: #343A40;
+    border: 1px solid black;
+
+}
+
+.nav-list ul li:hover .nav-list-hover {
+    display: block;
+    position: absolute;
+    z-index: 10;
+}
+
+.nav-list-hover a {
+    display: block;
+    font-size: 16px !important;
+    color: white !important;
+    padding-left: 10px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+
+.nav-list-hover a:hover {
+    color: red !important;
+    background-color: white;
+}

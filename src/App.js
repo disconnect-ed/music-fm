@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import MainContainer from "./components/Main/MainContainer";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import NavBarContainer from "./components/NavBar/NavBarContainer";
+import {Redirect, Route, Switch} from "react-router-dom";
+import ArtistContainer from "./components/Artist/ArtistContainer";
+import ArtistsListContainer from "./components/ArtistsList/ArtistsListContainer";
+import AlbumsContainer from "./components/Album/AlbumContainer";
+import TrackContainer from "./components/Track/TrackContainer";
+import AlbumsListContainer from "./components/AlbumsList/AlbumsListContainer";
+import TrackListContainer from "./components/TrackList/TrackListContainer";
+import AuthContainer from "./components/Auth/AuthContainer";
+import {connect} from "react-redux";
+import {getUserData} from "./redux/user-reducer";
+import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+    componentDidMount() {
+        const authUserName = this.props.authUserName;
+        const userKey = this.props.userKey;
+        const localStorageUser = localStorage.getItem('musicFmUser');
+        const localStorageKey = localStorage.getItem('musicFmKey');
+        if (!(authUserName && userKey) && (localStorageUser && localStorageKey)) {
+            this.props.getUserData(localStorageUser, localStorageKey)
+        }
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <NavBarContainer/>
+                <Switch>
+                    <Route exact path='/main' render={() => <MainContainer/>}/>
+                    <Route exact path='/artists' render={() => <ArtistsListContainer/>}/>
+                    <Route exact path='/artists/:artistId' render={() => <ArtistContainer/>}/>
+                    <Route exact path='/artists/:artistName' render={() => <ArtistsListContainer/>}/>
+                    <Route exact path='/albums/:albumsId' render={() => <AlbumsContainer/>}/>
+                    <Route exact path='/albums/' render={() => <AlbumsListContainer/>}/>
+                    <Route exact path='/tracks/:trackArtistName/:trackName' render={() => <TrackContainer/>}/>
+                    <Route exact path='/tracks' render={() => <TrackListContainer/>}/>
+                    <Route exact path='/auth' render={() => <AuthContainer/>}/>
+                    <Route path='/user' render={() => <UserProfileContainer/>}/>
+                    <Route exact path='/' render={() => <Redirect to='/main'/>}/>
+                </Switch>
+            </div>
+        );
+    }
 }
 
-export default App;
+let mapStateToProps = (state) => {
+    return {
+        authUserName: state.user.authUserName,
+        userKey: state.user.userKey
+    }
+}
+
+export default connect(mapStateToProps, {getUserData})(App);
