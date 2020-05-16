@@ -9,17 +9,27 @@ const Friends = (props) => {
                 <h2 className=" mb-4">Друзья пользователя {props.title}</h2>
                 <div className="row">
                     {props.friendsList.map(result => {
-                        const  imgSrc = result.image[1]['#text'];
-                        return <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-5">
-                            <div className="artistslist-card">
-                                <div className="text-center artistslist-card__img">
-                                    <NavLink to={`/userProfile/${result.name}`}>
+                        const imgSrc = result.image[2]['#text'];
+                        return <div className="col-12 mb-5">
+                            <div className="row">
+                                <div className="col-3 text-center">
+                                    <NavLink to={`/user/profile/${result.name}`}>
                                         <img src={imgSrc}
                                              alt={result.name}/>
                                     </NavLink>
                                 </div>
-                                <div className="artistslist-card__info">
-                                        <NavLink to={`/user/profile/${result.name}`}>{result.name}</NavLink>
+                                <div className="col-7">
+                                    <h4><NavLink to={`/user/profile/${result.name}`}>{result.name}</NavLink></h4>
+                                    {result.realname !== "" &&
+                                    <p className='mt-3'>Настоящее имя: {result.realname}</p>
+                                    }
+                                    {result.country !== "None" &&
+                                    <p className='mt-2'>Страна: {result.country}</p>
+                                    }
+                                    {result.registered['#text'] !== "" &&
+                                    <p className='mt-2'>Дата регистрации: {result.registered['#text']}</p>
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -28,7 +38,7 @@ const Friends = (props) => {
             </div>
         )
     } else {
-        return <Spinner className='spinner' animation="border" />
+        return <Spinner className='spinner' animation="border"/>
     }
 }
 

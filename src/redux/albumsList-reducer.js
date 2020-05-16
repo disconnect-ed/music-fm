@@ -6,6 +6,9 @@ const SET_ALBUM = 'SET_ALBUM';
 let initialState = {
     albumName: '',
     album: null,
+    totalResults: null,
+    page: null,
+    pageSize: 20
 }
 
 const albumsListReducer = (state = initialState, action) => {
@@ -18,7 +21,9 @@ const albumsListReducer = (state = initialState, action) => {
         case SET_ALBUM:
             return {
                 ...state,
-                album: action.album
+                album: action.album.results.albummatches.album,
+                page: action.album.results['opensearch:Query'].startPage,
+                totalResults: action.album.results['opensearch:totalResults']
             }
         default:
             return state
@@ -34,10 +39,10 @@ export const getAlbumName = (albumName) => {
     }
 }
 
-export const getAlbum = (albumName) => {
+export const getAlbum = (albumName, page) => {
     return (dispatch) => {
-        albumAPI.searchAlbum(albumName).then(response => {
-            dispatch(setAlbum(response.data.results.albummatches.album))
+        albumAPI.searchAlbum(albumName, page).then(response => {
+            dispatch(setAlbum(response.data))
         })
     }
 }

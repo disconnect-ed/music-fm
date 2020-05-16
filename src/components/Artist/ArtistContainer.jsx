@@ -11,6 +11,7 @@ import {
 } from "../../redux/artist-reducer";
 import Artist from "./Artist";
 import {getArtistTopAlbumsData} from "../../redux/selectors";
+import Paginator from "../common/Paginator/Paginator";
 
 class ArtistContainer extends React.PureComponent {
 
@@ -36,11 +37,18 @@ class ArtistContainer extends React.PureComponent {
         }
     }
 
+    onPageChanged = (page) => {
+        this.props.getArtistTopAlbums(this.props.artistId, page);
+    }
+
     render() {
         return (
             <Container>
                 <Artist artistSimilar={this.props.artistSimilar} artistId={this.props.artistId} artistInfo={this.props.artistInfo}
-                        artistTopTracks={this.props.artistTopTracks} artistTopAlbums={this.props.artistTopAlbums}/>
+                        artistTopTracks={this.props.artistTopTracks} artistTopAlbums={this.props.artistTopAlbums}
+                        onPageChanged={this.onPageChanged} page={this.props.albumsPage}
+                        totalResults={this.props.albumsTotalResults} pageSize={this.props.albumsPageSize}
+                />
             </Container>
         )
     }
@@ -52,6 +60,9 @@ let mapStateToProps = (state) => {
         artistInfo: state.artist.artistInfo,
         artistSimilar: state.artist.artistSimilar,
         artistTopTracks: state.artist.artistTopTracks,
+        albumsTotalResults: state.artist.albumsTotalResults,
+        albumsPage: state.artist.albumsPage,
+        albumsPageSize: state.artist.albumsPageSize,
         artistTopAlbums: getArtistTopAlbumsData(state),
     }
 }

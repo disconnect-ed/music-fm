@@ -10,7 +10,7 @@ const NavBar = (props) => {
     const onClick = () => {
         setState(!state);
     }
-
+    const authHref = 'http://www.last.fm/api/auth/?api_key=a1976dd334d85d2a880225cfe49e652c&cb=http://localhost:3000/auth';
     return (
         <Navbar className='nav' bg='dark'>
             <Navbar.Brand href='/'><h3 className='nav-title'>MUSIC-FM</h3></Navbar.Brand>
@@ -46,10 +46,10 @@ const NavBar = (props) => {
                             }
                         </div>
                     </li>
-                    <li>
-                        {props.authUserName ?
-                            <NavLink to={`/user/profile/${props.authUserName}`} >{props.authUserName}</NavLink> :
-                            <a target='_blank' href={props.authHref}>Войти</a>
+                    <li >
+                        {(props.authUser) ?
+                            <NavLink to={`/user/profile/${props.authUser}`} >Мой профиль</NavLink> :
+                            <a target='_blank' href={authHref}>Войти</a>
                         }
                     </li>
                 </ul>

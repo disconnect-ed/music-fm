@@ -7,6 +7,7 @@ const Albums = (props) => {
         return (
             <div className="artistslist-wrapper pt-5">
                 <h2 className="artistslist__title mb-4">{props.title}</h2>
+
                 <div className="row">
                     {props.albumsList.map(result => {
                         const  imgSrc = result.image[2]['#text'];

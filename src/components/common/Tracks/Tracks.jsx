@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 const Tracks = (props) => {
     if (props.trackList) {
         return (
-            <div className="chart-top-wrapper pb-5">
+            <div className="chart-top-wrapper pb-2">
                 <h2 className="chart-top__title mb-4">{props.title}</h2>
                 <Table className='table-responsive-md' striped bordered hover size="sm">
                     <tbody>

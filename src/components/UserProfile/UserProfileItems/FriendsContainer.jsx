@@ -3,6 +3,7 @@ import Friends from "../../common/Friends/Friends";
 import {connect} from "react-redux";
 import {getCurrentUser, getUserFriends} from "../../../redux/user-reducer";
 import {withRouter} from "react-router-dom";
+import Paginator from "../../common/Paginator/Paginator";
 
 class FriendsContainer extends React.PureComponent {
 
@@ -23,9 +24,20 @@ class FriendsContainer extends React.PureComponent {
         }
     }
 
+    onPageChanged = (page) => {
+        this.props.getUserFriends(this.props.currentUser, page);
+        window.scrollTo(0,0);
+    }
+
     render() {
         return (
+            <>
             <Friends friendsList={this.props.userFriends} title={this.props.match.params.user}/>
+                <div className="d-flex justify-content-center pb-3">
+                    <Paginator onPageChanged={this.onPageChanged} page={this.props.friendsPage}
+                               totalResults={this.props.friendsTotalResults} pageSize={this.props.friendsPageSize}/>
+                </div>
+            </>
         )
     }
 }
@@ -35,6 +47,9 @@ let mapStateToProps = (state) => {
         userFriends: state.user.userFriends,
         authUserName: state.user.authUserName,
         currentUser: state.user.currentUser,
+        friendsTotalResults: state.user.friendsTotalResults,
+        friendsPage: state.user.friendsPage,
+        friendsPageSize: state.user.friendsPageSize,
     }
 }
 

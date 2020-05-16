@@ -7,6 +7,7 @@ import Searcher from "../common/Searcher/Searcher";
 import TrackListOnLoad from "./TrackListOnLoad";
 import {getChartTopTracks} from "../../redux/chart-reducer";
 import {getGeoTopTracks} from "../../redux/geo-reducer";
+import Paginator from "../common/Paginator/Paginator";
 
 class TrackListContainer extends React.PureComponent {
 
@@ -15,13 +16,27 @@ class TrackListContainer extends React.PureComponent {
         this.props.getGeoTopTracks();
     }
 
+    onPageChanged = (page) => {
+        this.props.getTrackList(this.props.trackNameList, page);
+        window.scrollTo(0, 0)
+    }
+
     render() {
         return (
             <Container>
-                <Searcher getName={this.props.getTrackNameList} getList={this.props.getTrackList} name={this.props.trackNameList} title={'Введите название трека'}/>
+                <Searcher getName={this.props.getTrackNameList} getList={this.props.getTrackList}
+                          name={this.props.trackNameList} title={'Введите название трека'}/>
                 {this.props.trackList ?
-                    <TrackList trackListError={this.props.trackListError} trackList={this.props.trackList} title={'Результат поиска'} /> :
-                    <TrackListOnLoad chartTopTracks={this.props.chartTopTracks} geoTopTracks={this.props.geoTopTracks} />
+                    <>
+                        <TrackList trackListError={this.props.trackListError} trackList={this.props.trackList}
+                                   title={'Результат поиска'}/>
+                        <div className="d-flex justify-content-center pb-3">
+                            <Paginator onPageChanged={this.onPageChanged} page={this.props.page}
+                                       totalResults={this.props.totalResults} pageSize={this.props.pageSize}/>
+                        </div>
+                    </>
+                    :
+                    <TrackListOnLoad chartTopTracks={this.props.chartTopTracks} geoTopTracks={this.props.geoTopTracks}/>
                 }
             </Container>
         )
@@ -35,7 +50,15 @@ let mapStateToProps = (state) => {
         trackListError: state.trackList.trackListError,
         chartTopTracks: state.chart.chartTopTracks,
         geoTopTracks: state.geo.geoTopTracks,
+        totalResults: state.trackList.totalResults,
+        page: state.trackList.page,
+        pageSize: state.trackList.pageSize,
     }
 }
 
-export default connect(mapStateToProps, {getTrackNameList, getTrackList, getChartTopTracks, getGeoTopTracks})(TrackListContainer);
+export default connect(mapStateToProps, {
+    getTrackNameList,
+    getTrackList,
+    getChartTopTracks,
+    getGeoTopTracks
+})(TrackListContainer);

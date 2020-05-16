@@ -13,6 +13,9 @@ let initialState = {
     artistSimilar: null,
     artistTopTracks: null,
     artistTopAlbums: null,
+    albumsTotalResults: null,
+    albumsPage: null,
+    albumsPageSize: 8
 }
 
 const artistReducer = (state = initialState, action) => {
@@ -40,7 +43,9 @@ const artistReducer = (state = initialState, action) => {
         case SET_ARTIST_TOP_ALBUMS:
             return {
                 ...state,
-                artistTopAlbums: action.artistTopAlbums
+                artistTopAlbums: action.artistTopAlbums.topalbums.album,
+                albumsPage: action.artistTopAlbums.topalbums['@attr'].page,
+                albumsTotalResults: action.artistTopAlbums.topalbums['@attr'].totalPages,
             }
         default:
             return state
@@ -85,10 +90,10 @@ export const getArtistTopTracks = (artistId) => {
     }
 }
 
-export const getArtistTopAlbums = (artistId) => {
+export const getArtistTopAlbums = (artistId, page) => {
     return (dispatch) => {
-        artistAPI.getTopAlbums(artistId).then(response => {
-            dispatch(setArtistTopAlbums(response.data.topalbums.album))
+        artistAPI.getTopAlbums(artistId, page).then(response => {
+            dispatch(setArtistTopAlbums(response.data))
         })
     }
 }

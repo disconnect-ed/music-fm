@@ -59,3 +59,25 @@
     top: 30%;
     left: 50%;
 }
+
+.profile-menu {
+    position: sticky;
+    top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #EBEBEB;
+}
+
+.profile-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-menu ul li {
+    line-height: 40px;
+}
+
+.profile-menu ul li a {
+    color: black;
+    font-size: 20px;
+}

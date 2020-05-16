@@ -8,7 +8,6 @@ const SET_AUTH_USER = 'SET_AUTH_USER';
 let initialState = {
     apiKey: 'a1976dd334d85d2a880225cfe49e652c',
     apiSecret: 'c2910cf3a1ac8c17f699c16657bb4efe',
-    authHref: 'http://www.last.fm/api/auth/?api_key=a1976dd334d85d2a880225cfe49e652c&cb=http://localhost:3000/auth',
     authHash: null,
     authToken: null,
     sessionKey: null,
@@ -67,6 +66,23 @@ export const getSessionData = (authToken, authHash) => {
             localStorage.setItem('musicFmKey', response.data.session.key);
             localStorage.setItem('musicFmUser', response.data.session.name);
         })
+    }
+}
+
+export const getAuthUser = (authUser) => {
+    return (dispatch) => {
+        dispatch(setAuthUser(authUser));
+    }
+}
+
+export const logout = () => {
+    return(dispatch) => {
+        localStorage.removeItem('musicFmKey');
+        localStorage.removeItem('musicFmUser');
+        dispatch(setAuthHash(null))
+        dispatch(setAuthToken(null))
+        dispatch(setSessionKey(null))
+        dispatch(setAuthUser(null))
     }
 }
 

@@ -5,7 +5,10 @@ const SET_ARTIST ='SET_ARTIST';
 
 let initialState = {
     artistName: '',
-    artist: null
+    artist: null,
+    totalResults: null,
+    page: null,
+    pageSize: 20
 }
 
 const artistListReducer = (state = initialState, action) => {
@@ -18,7 +21,9 @@ const artistListReducer = (state = initialState, action) => {
         case SET_ARTIST:
             return {
                 ...state,
-                artist: action.artist.results.artistmatches.artist
+                artist: action.artist.results.artistmatches.artist,
+                page: action.artist.results['opensearch:Query'].startPage,
+                totalResults: action.artist.results['opensearch:totalResults']
             }
         default:
             return state

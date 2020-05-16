@@ -8,6 +8,9 @@ let initialState = {
     trackNameList: '',
     trackList: null,
     trackListError: null,
+    totalResults: null,
+    page: null,
+    pageSize: 20
 }
 
 const trackListReducer = (state = initialState, action) => {
@@ -20,7 +23,9 @@ const trackListReducer = (state = initialState, action) => {
         case SET_TRACK_LIST:
             return {
                 ...state,
-                trackList: action.trackList
+                trackList: action.trackList.results.trackmatches.track,
+                page: action.trackList.results['opensearch:Query'].startPage,
+                totalResults: action.trackList.results['opensearch:totalResults']
             }
         case SET_TRACK_LIST_ERROR:
             return {
@@ -42,10 +47,10 @@ export const getTrackNameList = (trackNameList) => {
     }
 }
 
-export const getTrackList = (trackNameList) => {
+export const getTrackList = (trackNameList, page) => {
     return (dispatch) => {
-        trackAPI.searchTrack(trackNameList).then(response => {
-            dispatch(setTrackList(response.data.results.trackmatches.track));
+        trackAPI.searchTrack(trackNameList, page).then(response => {
+            dispatch(setTrackList(response.data));
         })
     }
 }

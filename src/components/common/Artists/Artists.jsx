@@ -2,6 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import './ArtistsList.css'
 import {Spinner} from "react-bootstrap";
+import Paginator from "../Paginator/Paginator";
 
 const Artists = (props) => {
     if (props.artistsList) {

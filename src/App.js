@@ -14,18 +14,22 @@ import AuthContainer from "./components/Auth/AuthContainer";
 import {connect} from "react-redux";
 import {getUserData} from "./redux/user-reducer";
 import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
+import {getAuthUser} from "./redux/auth-reducer";
 
 class App extends Component {
 
     componentDidMount() {
         const authUserName = this.props.authUserName;
+        const authUser = this.props.authUser;
         const userKey = this.props.userKey;
         const localStorageUser = localStorage.getItem('musicFmUser');
         const localStorageKey = localStorage.getItem('musicFmKey');
-        if (!(authUserName && userKey) && (localStorageUser && localStorageKey)) {
+        if (!(authUserName && userKey && authUser) && (localStorageUser && localStorageKey)) {
             this.props.getUserData(localStorageUser, localStorageKey)
+            this.props.getAuthUser(localStorageUser)
         }
     }
+
 
     render() {
         return (
@@ -41,7 +45,7 @@ class App extends Component {
                     <Route exact path='/tracks/:trackArtistName/:trackName' render={() => <TrackContainer/>}/>
                     <Route exact path='/tracks' render={() => <TrackListContainer/>}/>
                     <Route exact path='/auth' render={() => <AuthContainer/>}/>
-                    <Route path='/user' render={() => <UserProfileContainer/>}/>
+                    <Route path='/user' render={() => <UserProfileContainer />}/>
                     <Route exact path='/' render={() => <Redirect to='/main'/>}/>
                 </Switch>
             </div>
@@ -52,8 +56,9 @@ class App extends Component {
 let mapStateToProps = (state) => {
     return {
         authUserName: state.user.authUserName,
+        authUser: state.auth.authUser,
         userKey: state.user.userKey
     }
 }
 
-export default connect(mapStateToProps, {getUserData})(App);
+export default connect(mapStateToProps, {getUserData, getAuthUser})(App);
