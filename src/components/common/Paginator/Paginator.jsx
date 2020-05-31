@@ -9,7 +9,7 @@ const Paginator = ({onPageChanged, ...props}) => {
     for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
     }
-    let portionSize = 10;
+    let portionSize = 5;
     let portionCount = Math.ceil(totalPages / portionSize);
     let [portionNumber, setPortionNumber] = useState(1);
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;

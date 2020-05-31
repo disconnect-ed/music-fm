@@ -1,3 +1,7 @@
+img {
+    max-width: 290px;
+}
+
 .App {
     background-color: #E3E3E3;
 }
@@ -80,4 +84,20 @@
 .profile-menu ul li a {
     color: black;
     font-size: 20px;
+}
+
+.friends a {
+    color: black;
+}
+
+.friends a:hover {
+    color: black;
+}
+
+.black {
+    color: black;
+}
+
+.black:hover {
+    color: black;
 }

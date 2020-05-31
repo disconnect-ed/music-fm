@@ -1,6 +1,6 @@
 
 export const getArtistTopAlbumsData = (state) => {
-    debugger
+
     if (state.artist.artistTopAlbums) {
         let arr = state.artist.artistTopAlbums;
         let artistTopAlbumsData = [];

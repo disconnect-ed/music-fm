@@ -52,7 +52,7 @@ export const getTrackParams = (trackName, trackArtistName) => {
 }
 
 export const getTrackInfo = (trackName, trackArtistName) => {
-    debugger
+
     return (dispatch) => {
         trackAPI.getInfo(trackArtistName, trackName).then(response => {
             dispatch(setTrackInfo(response.data.track))
@@ -61,7 +61,7 @@ export const getTrackInfo = (trackName, trackArtistName) => {
 }
 
 export const getSimilarTracks = (trackName, trackArtistName) => {
-    debugger
+
     return (dispatch) => {
         trackAPI.getSimilar(trackArtistName, trackName).then(response => {
             dispatch(setSimilarTracks(response.data.similartracks.track))

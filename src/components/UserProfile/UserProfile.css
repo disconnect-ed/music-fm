@@ -1,0 +1,12 @@
+.avatar, .profile-menu {
+    max-width: 290px;
+}
+
+.profile-menu {
+    word-wrap: break-word;
+}
+
+.profile-menu h4 {
+    padding-right: 10px;
+    padding-left: 10px;
+}

@@ -73,9 +73,7 @@ export const getArtistInfo = (artistId) => {
 }
 
 export const getArtistSimilar = (artistId) => {
-    debugger
     return (dispatch) => {
-        debugger
         artistAPI.getSimilar(artistId).then(response => {
             dispatch(setArtistSimilar(response.data.similarartists.artist))
         })

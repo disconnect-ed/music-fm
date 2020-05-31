@@ -15,7 +15,7 @@ class AlbumContainer extends React.PureComponent {
     }
 
     render() {
-        debugger
+
         return (
             <Container>
                 <Album albumInfo={this.props.albumInfo} albumTracks={this.props.albumTracks} />

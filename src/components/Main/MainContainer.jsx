@@ -9,7 +9,6 @@ import {withRouter} from "react-router-dom";
 class MainContainer extends React.PureComponent {
 
     componentDidMount() {
-        debugger
         // let userAuthToken = this.props.location.search;
         // this.props.getUserAuthToken(userAuthToken);
         this.props.getChartTopArtists();

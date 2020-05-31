@@ -14,7 +14,7 @@ const NavBar = (props) => {
     return (
         <Navbar className='nav' bg='dark'>
             <Navbar.Brand href='/'><h3 className='nav-title'>MUSIC-FM</h3></Navbar.Brand>
-            <Nav className='nav-list ml-auto d-none d-md-flex'>
+            <Nav className='nav-list ml-auto d-none d-lg-flex'>
                 <ul>
                     <li><NavLink to='/main'>Главная</NavLink></li>
                     <li>
@@ -56,7 +56,7 @@ const NavBar = (props) => {
 
             </Nav>
             <div className="nav-menu">
-                <Button onClick={onClick} className='btn-nav d-md-none'>Меню</Button>
+                <Button onClick={onClick} className='btn-nav d-lg-none'>Меню</Button>
                 <div className={`nav-menu-wrap ${state ? 'd-flex' : 'd-none'}`}>
                     <Button onClick={onClick} className='btn-menu btn-danger'>&#10006;</Button>
                     <h3 className='nav-title pt-3 pb-3'>Меню</h3>
@@ -64,6 +64,10 @@ const NavBar = (props) => {
                     <NavLink className='mb-3' to='/artists'>Исполнители</NavLink>
                     <NavLink className='mb-3' to='/albums'>Альбомы</NavLink>
                     <NavLink className='mb-3' to='/tracks'>Треки</NavLink>
+                    {(props.authUser) ?
+                        <NavLink to={`/user/profile/${props.authUser}`} >Мой профиль</NavLink> :
+                        <a target='_blank' href={authHref}>Войти</a>
+                    }
                 </div>
             </div>
         </Navbar>

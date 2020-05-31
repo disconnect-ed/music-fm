@@ -13,9 +13,9 @@ const Albums = (props) => {
                         const  imgSrc = result.image[2]['#text'];
                         return <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-5">
                             <div className="artistslist-card">
-                                <div className="artistslist-card__img">
+                                <div className="card__img">
                                     <NavLink to={result.mbid ? `/albums/${result.mbid}` : '#'}>
-                                        <img src={imgSrc ? imgSrc : './default'}
+                                        <img className='cover' src={imgSrc ? imgSrc : './default.png'}
                                              alt={Object.values(result.image[2])[1]}/>
                                     </NavLink>
                                 </div>

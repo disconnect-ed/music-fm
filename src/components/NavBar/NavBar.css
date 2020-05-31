@@ -92,3 +92,7 @@
     color: red !important;
     background-color: white;
 }
+
+.nav-menu-wrap a {
+    color: white;
+}

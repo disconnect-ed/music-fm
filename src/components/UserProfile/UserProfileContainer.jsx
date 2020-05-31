@@ -7,6 +7,7 @@ import AuthUserProfileContainer from "./UserProfileItems/UserContainer";
 import FriendsContainer from "./UserProfileItems/FriendsContainer";
 import {logout} from "../../redux/auth-reducer";
 import UserNavBar from "./UserProfileItems/UserNavBar";
+import './UserProfile.css'
 
 class UserProfileContainer extends React.Component {
 
@@ -21,11 +22,11 @@ class UserProfileContainer extends React.Component {
         return (
             <Container key={this.props.authUserName}>
                 <div className="row pt-4">
-                    <div className="col-3">
+                    <div className="col-md-12  col-lg-2 pr-lg-0 mb-3">
                         <UserNavBar authUser={this.props.authUser} userLogout={this.props.userLogout}
                                     logout={this.props.logout}/>
                     </div>
-                    <div className="col-9">
+                    <div className="col-12 col-lg-10">
 
                         <Route exact path='/user/profile/:user' render={() => <AuthUserProfileContainer/>}/>
                         <Route exact path='/user/friends/:user' render={() => <FriendsContainer/>}/>
