@@ -1,19 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
 import {Container} from "react-bootstrap";
-import {getUserInfo, userLogout} from "../../redux/user-reducer";
+import {userLogout} from "../../redux/actions/user-action";
 import {Redirect, Route, withRouter} from "react-router-dom";
 import AuthUserProfileContainer from "./UserProfileItems/UserContainer";
 import FriendsContainer from "./UserProfileItems/FriendsContainer";
-import {logout} from "../../redux/auth-reducer";
+import {logout} from "../../redux/actions/auth-action";
 import UserNavBar from "./UserProfileItems/UserNavBar";
 import './UserProfile.css'
 
 class UserProfileContainer extends React.Component {
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-
-    }
 
     render() {
         if (!localStorage.getItem('musicFmUser')) {
@@ -46,4 +42,4 @@ let mapStateToProps = (state) => {
 
 let urlDataContainer = withRouter(UserProfileContainer)
 
-export default connect(mapStateToProps, {getUserInfo, logout, userLogout})(urlDataContainer);
+export default connect(mapStateToProps, {logout, userLogout})(urlDataContainer);

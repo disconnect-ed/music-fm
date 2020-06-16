@@ -1,11 +1,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {getAlbumId, getAlbumInfo} from "../../redux/album-reducer";
+import {getAlbumId, getAlbumInfo} from "../../redux/actions/album-action";
 import Album from "./Album";
 import {Container} from "react-bootstrap";
 
-class AlbumContainer extends React.PureComponent {
+class AlbumContainer extends React.Component {
 
     componentDidMount() {
         let albumId = this.props.match.params.albumsId;
@@ -18,7 +18,9 @@ class AlbumContainer extends React.PureComponent {
 
         return (
             <Container>
-                <Album albumInfo={this.props.albumInfo} albumTracks={this.props.albumTracks} />
+                <Album albumInfo={this.props.albumInfo} albumTracks={this.props.albumTracks}
+                       albumIsLoading={this.props.albumIsLoading} albumError={this.props.albumError}
+                />
             </Container>
         )
     }
@@ -29,7 +31,8 @@ let mapStateToProps = (state) => {
         albumId: state.album.albumId,
         albumInfo: state.album.albumInfo,
         albumTracks: state.album.albumTracks,
-
+        albumIsLoading: state.album.albumIsLoading,
+        albumError: state.album.albumError,
     }
 }
 

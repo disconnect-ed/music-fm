@@ -4,8 +4,15 @@ import ArtistInfo from "./ArtistItem/ArtistInfo";
 import Albums from "../common/Albums/Albums";
 import Tracks from "../common/Tracks/Tracks";
 import Paginator from "../common/Paginator/Paginator";
+import {Spinner} from "react-bootstrap";
+import Error from "../common/Error/Error";
 
 const Artist = (props) => {
+
+    if (props.artistInfoIsLoading) return <Spinner className='spinner' animation="border"/>
+
+    if (props.artistError) return <Error error={props.artistError} />
+
     return (
         <div className='artist-wrapper'>
             <ArtistInfo artistInfo={props.artistInfo}/>

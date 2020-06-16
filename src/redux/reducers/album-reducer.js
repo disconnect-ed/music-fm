@@ -1,8 +1,9 @@
-import {albumAPI} from "../api/api";
 
 const SET_ALBUM_INFO = 'SET_ALBUM_INFO';
 const SET_ALBUM_ID ='SET_ALBUM_ID';
 const SET_ALBUM_TRACKS ='SET_ALBUM_TRACKS';
+const ALBUM_IS_LOADING ='ALBUM_IS_LOADING';
+const SET_ALBUM_ERROR = 'SET_ALBUM_ERROR'
 
 const albumReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -10,6 +11,11 @@ const albumReducer = (state = initialState, action) => {
             return {
                 ...state,
                 albumInfo: action.albumInfo
+            }
+        case SET_ALBUM_ERROR:
+            return {
+                ...state,
+                albumError: action.error
             }
         case SET_ALBUM_TRACKS:
             return {
@@ -21,6 +27,11 @@ const albumReducer = (state = initialState, action) => {
                 ...state,
                 albumId: action.albumId
             }
+        case ALBUM_IS_LOADING:
+            return {
+                ...state,
+                albumIsLoading: action.bool
+            }
         default:
             return state
     }
@@ -30,27 +41,15 @@ let initialState = {
     albumId: null,
     albumInfo: null,
     albumTracks: null,
+    albumIsLoading: true,
+    albumError: null
 }
 
-// export const updateAlbumName = (albumName) => ({type: UPDATE_ALBUM_NAME, albumName})
 export const setAlbumId = (albumId) => ({type: SET_ALBUM_ID, albumId})
 export const setAlbumInfo = (albumInfo) => ({type: SET_ALBUM_INFO, albumInfo});
 export const setAlbumTracks = (albumTracks) => ({type: SET_ALBUM_TRACKS, albumTracks});
-
-export const getAlbumId = (albumId) => {
-    return(dispatch) => {
-        dispatch(setAlbumId(albumId))
-    }
-}
-
-export const getAlbumInfo = (albumId) => {
-    return (dispatch) => {
-        albumAPI.getInfo(albumId).then(response => {
-            dispatch(setAlbumInfo(response.data.album))
-            dispatch(setAlbumTracks(response.data.album.tracks.track))
-        })
-    }
-}
+export const albumIsLoading = (bool) => ({type: ALBUM_IS_LOADING, bool});
+export const setAlbumError = (error = 'Попробуйте позже') => ({type: SET_ALBUM_ERROR, error});
 
 
 export default albumReducer;

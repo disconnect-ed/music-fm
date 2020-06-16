@@ -1,10 +1,11 @@
-import {artistAPI} from "../api/api";
 
 const SET_ARTIST_INFO = 'SET_ARTIST_INFO';
 const SET_ARTIST_ID = 'SET_ARTIST_ID';
 const SET_ARTIST_SIMILAR = 'SET_ARTIST_SIMILAR';
 const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
 const SET_ARTIST_TOP_ALBUMS = 'SET_ARTIST_TOP_ALBUMS';
+const ARTIST_INFO_IS_LOADING = 'ARTIST_INFO_IS_LOADING';
+const SET_ARTIST_ERROR = 'SET_ARTIST_ERROR';
 
 
 let initialState = {
@@ -15,7 +16,9 @@ let initialState = {
     artistTopAlbums: null,
     albumsTotalResults: null,
     albumsPage: null,
-    albumsPageSize: 8
+    artistError: null,
+    albumsPageSize: 8,
+    artistInfoIsLoading: true,
 }
 
 const artistReducer = (state = initialState, action) => {
@@ -29,6 +32,11 @@ const artistReducer = (state = initialState, action) => {
             return {
                 ...state,
                 artistInfo: action.artistInfo
+            }
+        case SET_ARTIST_ERROR:
+            return {
+                ...state,
+                artistError: action.error
             }
         case SET_ARTIST_SIMILAR:
             return {
@@ -47,6 +55,11 @@ const artistReducer = (state = initialState, action) => {
                 albumsPage: action.artistTopAlbums.topalbums['@attr'].page,
                 albumsTotalResults: action.artistTopAlbums.topalbums['@attr'].totalPages,
             }
+        case ARTIST_INFO_IS_LOADING:
+            return {
+                ...state,
+                artistInfoIsLoading: action.bool
+            }
         default:
             return state
     }
@@ -57,43 +70,9 @@ export const setArtistInfo = (artistInfo) => ({type: SET_ARTIST_INFO, artistInfo
 export const setArtistSimilar = (artistSimilar) => ({type: SET_ARTIST_SIMILAR, artistSimilar});
 export const setArtistTopTracks = (artistTopTracks) => ({type: SET_ARTIST_TOP_TRACKS, artistTopTracks});
 export const setArtistTopAlbums = (artistTopAlbums) => ({type: SET_ARTIST_TOP_ALBUMS, artistTopAlbums});
+export const artistInfoIsLoading = (bool) => ({type: ARTIST_INFO_IS_LOADING, bool});
+export const setArtistError = (error = 'Попробуйте позже') => ({type: SET_ARTIST_ERROR, error})
 
-export const getArtistId = (artistId) => {
-    return (dispatch) => {
-        dispatch(setArtistId(artistId))
-    }
-}
 
-export const getArtistInfo = (artistId) => {
-    return (dispatch) => {
-        artistAPI.getInfo(artistId).then(response => {
-            dispatch(setArtistInfo(response.data.artist))
-        })
-    }
-}
-
-export const getArtistSimilar = (artistId) => {
-    return (dispatch) => {
-        artistAPI.getSimilar(artistId).then(response => {
-            dispatch(setArtistSimilar(response.data.similarartists.artist))
-        })
-    }
-}
-
-export const getArtistTopTracks = (artistId) => {
-    return (dispatch) => {
-        artistAPI.getTopTracks(artistId).then(response => {
-            dispatch(setArtistTopTracks(response.data.toptracks.track))
-        })
-    }
-}
-
-export const getArtistTopAlbums = (artistId, page) => {
-    return (dispatch) => {
-        artistAPI.getTopAlbums(artistId, page).then(response => {
-            dispatch(setArtistTopAlbums(response.data))
-        })
-    }
-}
 
 export default artistReducer;

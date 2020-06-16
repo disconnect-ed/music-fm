@@ -3,37 +3,28 @@ import {Container} from "react-bootstrap";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
 import {
+    getArtistData,
     getArtistId,
-    getArtistInfo,
-    getArtistSimilar,
     getArtistTopAlbums,
-    getArtistTopTracks
-} from "../../redux/artist-reducer";
+} from "../../redux/actions/artist-action";
 import Artist from "./Artist";
-import {getArtistTopAlbumsData} from "../../redux/selectors";
-import Paginator from "../common/Paginator/Paginator";
+import {getArtistTopAlbumsData} from "../../utils/selectors";
 
 class ArtistContainer extends React.PureComponent {
 
     componentDidMount() {
         let artistId = this.props.match.params.artistId;
         this.props.getArtistId(artistId);
-        this.props.getArtistInfo(artistId);
-        this.props.getArtistSimilar(artistId);
-        this.props.getArtistTopTracks(artistId);
-        this.props.getArtistTopAlbums(artistId);
+        this.props.getArtistData(artistId)
         window.scrollTo(0, 0);
     }
 
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.match.params.artistId !== prevProps.artistId) {
+        if (this.props.match.params.artistId !== prevProps.match.params.artistId) {
             let artistId = this.props.match.params.artistId;
             this.props.getArtistId(artistId);
-            this.props.getArtistInfo(artistId);
-            this.props.getArtistSimilar(artistId);
-            this.props.getArtistTopTracks(artistId);
-            this.props.getArtistTopAlbums(artistId);
+            this.props.getArtistData(artistId)
         }
     }
 
@@ -44,10 +35,12 @@ class ArtistContainer extends React.PureComponent {
     render() {
         return (
             <Container>
-                <Artist artistSimilar={this.props.artistSimilar} artistId={this.props.artistId} artistInfo={this.props.artistInfo}
+                <Artist artistSimilar={this.props.artistSimilar} artistId={this.props.artistId}
+                        artistInfo={this.props.artistInfo}
                         artistTopTracks={this.props.artistTopTracks} artistTopAlbums={this.props.artistTopAlbums}
                         onPageChanged={this.onPageChanged} page={this.props.albumsPage}
                         totalResults={this.props.albumsTotalResults} pageSize={this.props.albumsPageSize}
+                        artistInfoIsLoading={this.props.artistInfoIsLoading} artistError={this.props.artistError}
                 />
             </Container>
         )
@@ -62,11 +55,14 @@ let mapStateToProps = (state) => {
         artistTopTracks: state.artist.artistTopTracks,
         albumsTotalResults: state.artist.albumsTotalResults,
         albumsPage: state.artist.albumsPage,
+        artistError: state.artist.artistError,
         albumsPageSize: state.artist.albumsPageSize,
         artistTopAlbums: getArtistTopAlbumsData(state),
+        artistInfoIsLoading: state.artist.artistInfoIsLoading
     }
 }
 
 let urlDataContainer = withRouter(ArtistContainer)
 
-export default connect(mapStateToProps, {getArtistId, getArtistInfo, getArtistSimilar, getArtistTopAlbums, getArtistTopTracks})(urlDataContainer);
+export default connect(mapStateToProps, {getArtistId,
+    getArtistTopAlbums, getArtistData})(urlDataContainer);

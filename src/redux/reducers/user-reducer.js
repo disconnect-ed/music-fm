@@ -1,4 +1,3 @@
-import {userAPI} from "../api/api";
 
 const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
 const SET_USER_KEY = 'SET_USER_KEY';
@@ -9,6 +8,8 @@ const SET_USER_TOP_ALBUMS = 'SET_USER_TOP_ALBUMS';
 const SET_USER_FRIENDS = 'SET_USER_FRIENDS';
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 const USER_LOGOUT = 'USER_LOGOUT';
+const USER_PROFILE_DATA_IS_LOADING = 'USER_PROFILE_DATA_IS_LOADING';
+const USER_FRIENDS_IS_LOADING = 'USER_FRIENDS_IS_LOADING';
 
 let initialState = {
     authUserName: null,
@@ -30,7 +31,9 @@ let initialState = {
     albumsPageSize: 8,
     tracksTotalResults: null,
     tracksPage: null,
-    tracksPageSize: 10
+    tracksPageSize: 10,
+    userProfileDataIsLoading: true,
+    userFriendsIsLoading: true
 }
 
 const userReducer = (state = initialState, action) => {
@@ -44,6 +47,16 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userKey: action.userKey
+            }
+        case USER_FRIENDS_IS_LOADING:
+            return {
+                ...state,
+                userFriendsIsLoading: action.bool
+            }
+        case USER_PROFILE_DATA_IS_LOADING:
+            return {
+                ...state,
+                userProfileDataIsLoading: action.bool
             }
         case SET_USER_INFO:
             return {
@@ -107,65 +120,8 @@ export const setUserTopArtists = (userTopArtists) => ({type: SET_USER_TOP_ARTIST
 export const setUserTopAlbums = (userTopAlbums) => ({type: SET_USER_TOP_ALBUMS, userTopAlbums});
 export const setUserFriends = (userFriends) => ({type: SET_USER_FRIENDS, userFriends});
 export const setCurrentUser = (currentUser) => ({type: SET_CURRENT_USER, currentUser})
+export const userFriendsIsLoading = (bool) => ({type: USER_FRIENDS_IS_LOADING, bool})
+export const userProfileDataIsLoading = (bool) => ({type: USER_PROFILE_DATA_IS_LOADING, bool})
 export const setUserLogout = () => ({type: USER_LOGOUT})
-
-export const getUserData = (authUserName, userKey) => {
-    return (dispatch) => {
-        dispatch(setAuthUserName(authUserName));
-        dispatch(setUserKey(userKey));
-    }
-}
-
-export const getUserInfo = (user) => {
-    return (dispatch) => {
-        userAPI.getInfo(user).then(response => {
-            dispatch(setUserInfo(response.data.user))
-        })
-    }
-}
-
-export const getLovedTracks = (user, page) => {
-    return (dispatch) => {
-        userAPI.getLovedTracks(user, page).then(response => {
-            dispatch(setLovedTracks(response.data))
-        })
-    }
-}
-
-export const getUserTopArtists = (user, page) => {
-    return (dispatch) => {
-        userAPI.getTopArtists(user, page).then(response => {
-            dispatch(setUserTopArtists(response.data))
-        })
-    }
-}
-
-export const getUserTopAlbums = (user, page) => {
-    return (dispatch) => {
-        userAPI.getTopAlbums(user, page).then(response => {
-            dispatch(setUserTopAlbums(response.data))
-        })
-    }
-}
-
-export const getUserFriends = (user, page) => {
-    return (dispatch) => {
-        userAPI.getFriends(user, page).then(response => {
-            dispatch(setUserFriends(response.data))
-        })
-    }
-}
-
-export const getCurrentUser = (currentUser) => {
-    return (dispatch) => {
-        dispatch(setCurrentUser(currentUser))
-    }
-}
-
-export const userLogout = () => {
-    return(dispatch) => {
-        dispatch(setUserLogout())
-    }
-}
 
 export default userReducer;

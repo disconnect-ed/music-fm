@@ -12,9 +12,9 @@ import AlbumsListContainer from "./components/AlbumsList/AlbumsListContainer";
 import TrackListContainer from "./components/TrackList/TrackListContainer";
 import AuthContainer from "./components/Auth/AuthContainer";
 import {connect} from "react-redux";
-import {getUserData} from "./redux/user-reducer";
+import {getUserData} from "./redux/actions/user-action";
 import UserProfileContainer from "./components/UserProfile/UserProfileContainer";
-import {getAuthUser} from "./redux/auth-reducer";
+import {getAuthUser} from "./redux/actions/auth-action";
 
 class App extends Component {
 

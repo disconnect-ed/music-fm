@@ -2,12 +2,11 @@ import React from "react";
 import {Container} from "react-bootstrap";
 import AlbumsListOnLoad from "./AlbumsListOnLoad";
 import {connect} from "react-redux";
-import {getAlbum, getAlbumName} from "../../redux/albumsList-reducer";
-import Albums from "../common/Albums/Albums";
+import {getAlbumList, getAlbumName} from "../../redux/actions/albumsList-action";
 import Searcher from "../common/Searcher/Searcher";
-import {getChartTopArtists} from "../../redux/chart-reducer";
-import {getGeoTopArtist} from "../../redux/geo-reducer";
-import Paginator from "../common/Paginator/Paginator";
+import {getChartTopArtists} from "../../redux/actions/chart-action";
+import {getGeoTopArtist} from "../../redux/actions/geo-action";
+import AlbumsList from "./AlbumsList";
 
 class AlbumsListContainer extends React.PureComponent {
 
@@ -17,23 +16,22 @@ class AlbumsListContainer extends React.PureComponent {
     }
 
     onPageChanged = (page) => {
-        this.props.getAlbum(this.props.albumName, page);
-        window.scrollTo(0,0)
+        this.props.getAlbumList(this.props.albumName, page);
+        window.scrollTo(0, 0)
     }
 
     render() {
+
         return (
             <Container>
-                <Searcher getName={this.props.getAlbumName} getList={this.props.getAlbum} name={this.props.albumName}
+                <Searcher getName={this.props.getAlbumName} getList={this.props.getAlbumList}
+                          name={this.props.albumName} error={this.props.albumListError}
                           title={'Введите название альбома'}/>
                 {this.props.album ?
-                    <>
-                        <Albums albumsList={this.props.album} title={'Результаты поиска'}/>
-                        <div className="d-flex justify-content-center pb-3">
-                            <Paginator onPageChanged={this.onPageChanged} page={this.props.page}
-                                       totalResults={this.props.totalResults} pageSize={this.props.pageSize}/>
-                        </div>
-                    </>
+                    <AlbumsList albumListIsLoading={this.props.albumListIsLoading} albumsList={this.props.album}
+                                title={'Результаты поиска'} onPageChanged={this.onPageChanged} page={this.props.page}
+                                totalResults={this.props.totalResults} pageSize={this.props.pageSize}
+                    />
                     :
                     <AlbumsListOnLoad chartTopArtists={this.props.chartTopArtists}
                                       geoTopArtists={this.props.geoTopArtists}/>
@@ -52,13 +50,16 @@ let mapStateToProps = (state) => {
         geoTopArtists: state.geo.geoTopArtists,
         totalResults: state.albumList.totalResults,
         page: state.albumList.page,
+        albumListError: state.albumList.albumListError,
         pageSize: state.albumList.pageSize,
+        albumListIsLoading: state.albumList.albumListIsLoading
+
     }
 }
 
 export default connect(mapStateToProps, {
     getAlbumName,
-    getAlbum,
+    getAlbumList,
     getChartTopArtists,
     getGeoTopArtist
 })(AlbumsListContainer);

@@ -1,19 +1,22 @@
 import React from "react";
 import {Container} from "react-bootstrap";
 import {connect} from "react-redux";
-import {getArtist, getArtistName} from "../../redux/atistList-reducer";
-import Artists from "../common/Artists/Artists";
-import {getChartTopArtists} from "../../redux/chart-reducer";
-import {getGeoTopArtist} from "../../redux/geo-reducer";
+import {getArtist, getArtistName} from "../../redux/actions/atistList-action";
+import {getChartTopArtists} from "../../redux/actions/chart-action";
+import {getGeoTopArtist} from "../../redux/actions/geo-action";
 import ArtistsListOnLoad from "./ArtistsListOnLoad";
 import Searcher from "../common/Searcher/Searcher";
-import Paginator from "../common/Paginator/Paginator";
+import ArtistsList from "./ArtistsList";
 
 class ArtistsListContainer extends React.Component {
 
     componentDidMount() {
-        this.props.getChartTopArtists();
-        this.props.getGeoTopArtist();
+        if (!this.props.chartTopArtists) {
+            this.props.getChartTopArtists();
+        }
+        if (!this.props.geoTopArtists) {
+            this.props.getGeoTopArtist();
+        }
     }
 
     onPageChanged = (page) => {
@@ -22,18 +25,19 @@ class ArtistsListContainer extends React.Component {
     }
 
     render() {
+
+
+
         return (
             <Container>
                 <Searcher getName={this.props.getArtistName} getList={this.props.getArtist} name={this.props.artistName}
-                          title={'Введите имя исполнителя'}/>
+                          title={'Введите имя исполнителя'} error={this.props.artistListError}/>
                 {this.props.artist ?
-                    <>
-                        <Artists artistsList={this.props.artist} title={'Результаты поиска'}/>
-                        <div className="d-flex justify-content-center pb-3">
-                            <Paginator onPageChanged={this.onPageChanged} page={this.props.page}
-                                       totalResults={this.props.totalResults} pageSize={this.props.pageSize}/>
-                        </div>
-                    </>
+                    <ArtistsList artistsList={this.props.artist} title={'Результаты поиска'}
+                                 onPageChanged={this.onPageChanged} page={this.props.page}
+                                 totalResults={this.props.totalResults} pageSize={this.props.pageSize}
+                                 artistListIsLoading={this.props.artistListIsLoading}
+                    />
                     :
                     <ArtistsListOnLoad chartTopArtists={this.props.chartTopArtists}
                                        geoTopArtists={this.props.geoTopArtists}/>
@@ -52,6 +56,8 @@ let mapStateToProps = (state) => {
         totalResults: state.artistList.totalResults,
         page: state.artistList.page,
         pageSize: state.artistList.pageSize,
+        artistListError: state.artistList.artistListError,
+        artistListIsLoading: state.artistList.artistListIsLoading,
         chartTopArtists: state.chart.chartTopArtists,
         geoTopArtists: state.geo.geoTopArtists,
 

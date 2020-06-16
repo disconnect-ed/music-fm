@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {withRouter} from "react-router-dom";
-import {getAuthHash, getAuthToken, getSessionData} from "../../redux/auth-reducer";
+import {getAuthHash, getAuthToken, getSessionData} from "../../redux/actions/auth-action";
 import Auth from "./Auth";
 import md5 from 'md5';
 

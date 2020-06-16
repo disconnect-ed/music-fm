@@ -2,6 +2,9 @@ import React from "react";
 import Tracks from "../common/Tracks/Tracks";
 
 const TrackListOnLoad = (props) => {
+
+    if (!props.chartTopTracks && !props.geoTopTracks) return null
+
     return (
         <>
             <Tracks trackList={props.chartTopTracks} title={'Популярные треки'} />

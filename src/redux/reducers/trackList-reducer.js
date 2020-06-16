@@ -1,8 +1,9 @@
-import {trackAPI} from "../api/api";
 
 const SET_TRACK_NAME_LIST = 'SET_TRACK_NAME_LIST';
 const SET_TRACK_LIST = 'SET_TRACK_LIST';
 const SET_TRACK_LIST_ERROR = 'SET_TRACK_LIST_ERROR';
+const TRACK_LIST_IS_LOADING = 'TRACK_LIST_IS_LOADING';
+
 
 let initialState = {
     trackNameList: '',
@@ -10,7 +11,8 @@ let initialState = {
     trackListError: null,
     totalResults: null,
     page: null,
-    pageSize: 20
+    pageSize: 20,
+    trackListIsLoading: true
 }
 
 const trackListReducer = (state = initialState, action) => {
@@ -30,7 +32,12 @@ const trackListReducer = (state = initialState, action) => {
         case SET_TRACK_LIST_ERROR:
             return {
                 ...state,
-                trackListError: action.trackListError
+                trackListError: action.error
+            }
+        case TRACK_LIST_IS_LOADING:
+            return {
+                ...state,
+                trackListIsLoading: action.bool
             }
         default:
             return state
@@ -39,20 +46,9 @@ const trackListReducer = (state = initialState, action) => {
 
 export const setTrackNameList = (trackNameList) => ({type: SET_TRACK_NAME_LIST, trackNameList});
 export const setTrackList = (trackList) => ({type: SET_TRACK_LIST, trackList});
-export const setTrackListError = (trackListError) => ({type: SET_TRACK_LIST_ERROR, trackListError});
+export const trackListIsLoading = (bool) => ({type: TRACK_LIST_IS_LOADING, bool});
+export const setTrackListError = (error = 'Попробуйте позже') => ({type: SET_TRACK_LIST_ERROR, error});
 
-export const getTrackNameList = (trackNameList) => {
-    return (dispatch) => {
-        dispatch(setTrackNameList(trackNameList))
-    }
-}
 
-export const getTrackList = (trackNameList, page) => {
-    return (dispatch) => {
-        trackAPI.searchTrack(trackNameList, page).then(response => {
-            dispatch(setTrackList(response.data));
-        })
-    }
-}
 
 export default trackListReducer;

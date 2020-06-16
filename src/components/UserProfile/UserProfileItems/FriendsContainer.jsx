@@ -1,9 +1,10 @@
 import React from "react";
 import Friends from "../../common/Friends/Friends";
 import {connect} from "react-redux";
-import {getCurrentUser, getUserFriends} from "../../../redux/user-reducer";
+import {getCurrentUser, getUserFriends} from "../../../redux/actions/user-action";
 import {withRouter} from "react-router-dom";
 import Paginator from "../../common/Paginator/Paginator";
+import {Spinner} from "react-bootstrap";
 
 class FriendsContainer extends React.PureComponent {
 
@@ -30,6 +31,9 @@ class FriendsContainer extends React.PureComponent {
     }
 
     render() {
+
+        if (this.props.userFriendsIsLoading) return <Spinner className='spinner' animation="border" />
+
         return (
             <>
             <Friends friendsList={this.props.userFriends} title={this.props.match.params.user}/>
@@ -50,6 +54,7 @@ let mapStateToProps = (state) => {
         friendsTotalResults: state.user.friendsTotalResults,
         friendsPage: state.user.friendsPage,
         friendsPageSize: state.user.friendsPageSize,
+        userFriendsIsLoading: state.user.userFriendsIsLoading,
     }
 }
 

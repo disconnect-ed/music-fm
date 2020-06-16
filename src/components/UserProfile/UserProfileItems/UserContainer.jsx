@@ -4,36 +4,31 @@ import Profile from "../../common/Profile/Profile";
 import {
     getCurrentUser,
     getLovedTracks,
-    getUserInfo,
+    getUserProfileData,
     getUserTopAlbums,
     getUserTopArtists
-} from "../../../redux/user-reducer";
+} from "../../../redux/actions/user-action";
 import Tracks from "../../common/Tracks/Tracks";
 import Artists from "../../common/Artists/Artists";
 import Albums from "../../common/Albums/Albums";
 import {withRouter} from "react-router-dom";
 import Paginator from "../../common/Paginator/Paginator";
+import {Spinner} from "react-bootstrap";
 
 class UserContainer extends React.Component {
 
     componentDidMount() {
         const user = this.props.match.params.user;
         if (user) {
-            this.props.getUserInfo(user);
-            this.props.getLovedTracks(user);
-            this.props.getUserTopArtists(user);
-            this.props.getUserTopAlbums(user);
+            this.props.getUserProfileData(user);
+            this.props.getCurrentUser(user);
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         const user = this.props.match.params.user;
-        const currentUser = this.props.currentUser;
-        if (user !== currentUser) {
-            this.props.getUserInfo(user);
-            this.props.getLovedTracks(user);
-            this.props.getUserTopArtists(user);
-            this.props.getUserTopAlbums(user);
+        if (this.props.match.params.user !== prevProps.match.params.user) {
+            this.props.getUserProfileData(user);
             this.props.getCurrentUser(user);
             window.scrollTo(0,0);
         }
@@ -52,6 +47,9 @@ class UserContainer extends React.Component {
     }
 
     render() {
+
+        if (this.props.userProfileDataIsLoading) return <Spinner className='spinner' animation="border" />
+
         return (
             <>
                 <Profile userInfo={this.props.userInfo} lovedTracks={this.props.lovedTracks}/>
@@ -99,13 +97,14 @@ let mapStateToProps = (state) => {
         tracksTotalResults: state.user.tracksTotalResults,
         tracksPage: state.user.tracksPage,
         tracksPageSize: state.user.tracksPageSize,
+        userProfileDataIsLoading: state.user.userProfileDataIsLoading,
     }
 }
 
 let urlDataContainer = withRouter(UserContainer);
 
 export default connect(mapStateToProps, {
-    getUserInfo,
+    getUserProfileData,
     getLovedTracks,
     getUserTopArtists,
     getUserTopAlbums,

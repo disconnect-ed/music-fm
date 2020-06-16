@@ -1,14 +1,17 @@
-import {artistAPI} from "../api/api";
 
 const SET_ARTIST_NAME = 'SET_ARTIST_NAME';
 const SET_ARTIST ='SET_ARTIST';
+const ARTIST_LIST_IS_LOADING ='ARTIST_LIST_IS_LOADING';
+const SET_ARTIST_LIST_ERROR ='SET_ARTIST_LIST_ERROR';
 
 let initialState = {
     artistName: '',
     artist: null,
     totalResults: null,
     page: null,
-    pageSize: 20
+    pageSize: 20,
+    artistListIsLoading: false,
+    artistListError: null
 }
 
 const artistListReducer = (state = initialState, action) => {
@@ -17,6 +20,16 @@ const artistListReducer = (state = initialState, action) => {
             return {
                 ...state,
                 artistName: action.artistName
+            }
+        case SET_ARTIST_LIST_ERROR:
+            return {
+                ...state,
+                artistListError: action.error
+            }
+        case ARTIST_LIST_IS_LOADING:
+            return {
+                ...state,
+                artistListIsLoading: action.bool
             }
         case SET_ARTIST:
             return {
@@ -32,20 +45,8 @@ const artistListReducer = (state = initialState, action) => {
 
 export const setArtistName = (artistName) => ({type: SET_ARTIST_NAME, artistName});
 export const setArtist = (artist) => ({type: SET_ARTIST, artist});
-
-export const getArtistName = (artistName) => {
-    return (dispatch) => {
-        dispatch(setArtistName(artistName))
-    }
-}
-
-export const getArtist = (artistName, page) => {
-    return (dispatch) => {
-        artistAPI.searchArtist(artistName, page).then(response => {
-            dispatch(setArtist(response.data))
-        })
-    }
-}
+export const artistListIsLoading = (bool) => ({type: ARTIST_LIST_IS_LOADING, bool});
+export const setArtistListError = (error = 'Попробуйте позже') => ({type: SET_ARTIST_LIST_ERROR, error});
 
 
 export default artistListReducer
