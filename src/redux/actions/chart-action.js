@@ -1,5 +1,8 @@
 import {chartAPI} from "../../api/api";
-import {setChartTopArtists, setChartTopTracks} from "../reducers/chart-reducer";
+import {SET_CHART_TOP_ARTISTS, SET_CHART_TOP_TRACKS} from "../reducers/chart-reducer";
+
+export const setChartTopArtists = (chartTopArtists) => ({type: SET_CHART_TOP_ARTISTS, chartTopArtists})
+export const setChartTopTracks = (chartTopTracks) => ({type: SET_CHART_TOP_TRACKS, chartTopTracks})
 
 export const getChartTopArtists = () => {
     return (dispatch) => {

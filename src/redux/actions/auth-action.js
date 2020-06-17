@@ -1,5 +1,10 @@
 import {authAPI} from "../../api/api";
-import {setAuthHash, setAuthToken, setAuthUser, setSessionKey} from "../reducers/auth-reducer";
+import {SET_AUTH_HASH, SET_AUTH_TOKEN, SET_AUTH_USER, SET_SESSION_KEY} from "../reducers/auth-reducer";
+
+export const setAuthHash = (authHash) => ({type: SET_AUTH_HASH, authHash});
+export const setAuthToken = (authToken) => ({type: SET_AUTH_TOKEN, authToken});
+export const setSessionKey = (sessionKey) => ({type: SET_SESSION_KEY, sessionKey});
+export const setAuthUser = (authUser) => ({type: SET_AUTH_USER, authUser});
 
 export const getAuthHash = (authHash) => {
     return (dispatch) => {

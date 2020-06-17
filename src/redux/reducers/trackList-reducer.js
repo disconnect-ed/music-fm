@@ -1,8 +1,8 @@
 
-const SET_TRACK_NAME_LIST = 'SET_TRACK_NAME_LIST';
-const SET_TRACK_LIST = 'SET_TRACK_LIST';
-const SET_TRACK_LIST_ERROR = 'SET_TRACK_LIST_ERROR';
-const TRACK_LIST_IS_LOADING = 'TRACK_LIST_IS_LOADING';
+export const SET_TRACK_NAME_LIST = 'SET_TRACK_NAME_LIST';
+export const SET_TRACK_LIST = 'SET_TRACK_LIST';
+export const SET_TRACK_LIST_ERROR = 'SET_TRACK_LIST_ERROR';
+export const TRACK_LIST_IS_LOADING = 'TRACK_LIST_IS_LOADING';
 
 
 let initialState = {
@@ -43,12 +43,5 @@ const trackListReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setTrackNameList = (trackNameList) => ({type: SET_TRACK_NAME_LIST, trackNameList});
-export const setTrackList = (trackList) => ({type: SET_TRACK_LIST, trackList});
-export const trackListIsLoading = (bool) => ({type: TRACK_LIST_IS_LOADING, bool});
-export const setTrackListError = (error = 'Попробуйте позже') => ({type: SET_TRACK_LIST_ERROR, error});
-
-
 
 export default trackListReducer;

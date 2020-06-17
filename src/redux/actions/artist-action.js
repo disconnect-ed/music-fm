@@ -1,8 +1,20 @@
 import {artistAPI} from "../../api/api";
 import {
-    setArtistId, setArtistInfo, setArtistSimilar,
-    setArtistTopAlbums, setArtistTopTracks, artistInfoIsLoading, setArtistError
+    ARTIST_INFO_IS_LOADING, SET_ARTIST_ERROR,
+    SET_ARTIST_ID,
+    SET_ARTIST_INFO,
+    SET_ARTIST_SIMILAR,
+    SET_ARTIST_TOP_ALBUMS,
+    SET_ARTIST_TOP_TRACKS
 } from "../reducers/artist-reducer";
+
+export const setArtistId = (artistId) => ({type: SET_ARTIST_ID, artistId});
+export const setArtistInfo = (artistInfo) => ({type: SET_ARTIST_INFO, artistInfo});
+export const setArtistSimilar = (artistSimilar) => ({type: SET_ARTIST_SIMILAR, artistSimilar});
+export const setArtistTopTracks = (artistTopTracks) => ({type: SET_ARTIST_TOP_TRACKS, artistTopTracks});
+export const setArtistTopAlbums = (artistTopAlbums) => ({type: SET_ARTIST_TOP_ALBUMS, artistTopAlbums});
+export const artistInfoIsLoading = (bool) => ({type: ARTIST_INFO_IS_LOADING, bool});
+export const setArtistError = (error = 'Попробуйте позже') => ({type: SET_ARTIST_ERROR, error})
 
 export const getArtistId = (artistId) => {
     return (dispatch) => {
@@ -60,7 +72,6 @@ export const albums = (artistId) => {
 }
 
 export const getArtistData = (artistId) => {
-    debugger
     return (dispatch) => {
         dispatch(artistInfoIsLoading(true))
         Promise.all([info(artistId), similar(artistId), tracks(artistId),

@@ -1,15 +1,15 @@
 
-const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
-const SET_USER_KEY = 'SET_USER_KEY';
-const SET_USER_INFO = 'SET_USER_INFO';
-const SET_LOVED_TRACKS = 'SET_LOVED_TRACKS';
-const SET_USER_TOP_ARTISTS = 'SET_USER_TOP_ARTISTS';
-const SET_USER_TOP_ALBUMS = 'SET_USER_TOP_ALBUMS';
-const SET_USER_FRIENDS = 'SET_USER_FRIENDS';
-const SET_CURRENT_USER = 'SET_CURRENT_USER';
-const USER_LOGOUT = 'USER_LOGOUT';
-const USER_PROFILE_DATA_IS_LOADING = 'USER_PROFILE_DATA_IS_LOADING';
-const USER_FRIENDS_IS_LOADING = 'USER_FRIENDS_IS_LOADING';
+export const SET_AUTH_USER_NAME = 'SET_AUTH_USER_NAME';
+export const SET_USER_KEY = 'SET_USER_KEY';
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_LOVED_TRACKS = 'SET_LOVED_TRACKS';
+export const SET_USER_TOP_ARTISTS = 'SET_USER_TOP_ARTISTS';
+export const SET_USER_TOP_ALBUMS = 'SET_USER_TOP_ALBUMS';
+export const SET_USER_FRIENDS = 'SET_USER_FRIENDS';
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const USER_PROFILE_DATA_IS_LOADING = 'USER_PROFILE_DATA_IS_LOADING';
+export const USER_FRIENDS_IS_LOADING = 'USER_FRIENDS_IS_LOADING';
 
 let initialState = {
     authUserName: null,
@@ -111,17 +111,5 @@ const userReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setAuthUserName = (authUserName) => ({type: SET_AUTH_USER_NAME, authUserName});
-export const setUserKey = (userKey) => ({type: SET_USER_KEY, userKey});
-export const setUserInfo = (userInfo) => ({type: SET_USER_INFO, userInfo});
-export const setLovedTracks = (lovedTracks) => ({type: SET_LOVED_TRACKS, lovedTracks});
-export const setUserTopArtists = (userTopArtists) => ({type: SET_USER_TOP_ARTISTS, userTopArtists});
-export const setUserTopAlbums = (userTopAlbums) => ({type: SET_USER_TOP_ALBUMS, userTopAlbums});
-export const setUserFriends = (userFriends) => ({type: SET_USER_FRIENDS, userFriends});
-export const setCurrentUser = (currentUser) => ({type: SET_CURRENT_USER, currentUser})
-export const userFriendsIsLoading = (bool) => ({type: USER_FRIENDS_IS_LOADING, bool})
-export const userProfileDataIsLoading = (bool) => ({type: USER_PROFILE_DATA_IS_LOADING, bool})
-export const setUserLogout = () => ({type: USER_LOGOUT})
 
 export default userReducer;

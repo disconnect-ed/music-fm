@@ -1,8 +1,8 @@
 
-const SET_ALBUM_NAME = 'SET_ALBUM_NAME';
-const SET_ALBUM = 'SET_ALBUM';
-const ALBUM_LIST_IS_LOADING = 'ALBUM_LIST_IS_LOADING';
-const SET_ALBUM_LIST_ERROR = 'SET_ALBUM_LIST_ERROR'
+export const SET_ALBUM_NAME = 'SET_ALBUM_NAME';
+export const SET_ALBUM = 'SET_ALBUM';
+export const ALBUM_LIST_IS_LOADING = 'ALBUM_LIST_IS_LOADING';
+export const SET_ALBUM_LIST_ERROR = 'SET_ALBUM_LIST_ERROR'
 
 let initialState = {
     albumName: '',
@@ -42,12 +42,5 @@ const albumsListReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setAlbumName = (albumName) => ({type: SET_ALBUM_NAME, albumName});
-export const setAlbum = (album) => ({type: SET_ALBUM, album});
-export const albumListIsLoading = (bool) => ({type: ALBUM_LIST_IS_LOADING, bool});
-export const setAlbumListError = (error = 'Попробуйте позже') => ({type: SET_ALBUM_LIST_ERROR, error});
-
-
 
 export default albumsListReducer

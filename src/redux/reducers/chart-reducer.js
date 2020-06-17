@@ -1,6 +1,6 @@
 
-const SET_CHART_TOP_ARTISTS = 'SET_CHART_TOP_ARTISTS';
-const SET_CHART_TOP_TRACKS = 'SET_CHART_TOP_TRACKS';
+export const SET_CHART_TOP_ARTISTS = 'SET_CHART_TOP_ARTISTS';
+export const SET_CHART_TOP_TRACKS = 'SET_CHART_TOP_TRACKS';
 
 let initialState = {
     chartTopArtists: null,
@@ -23,10 +23,5 @@ const chartReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setChartTopArtists = (chartTopArtists) => ({type: SET_CHART_TOP_ARTISTS, chartTopArtists})
-export const setChartTopTracks = (chartTopTracks) => ({type: SET_CHART_TOP_TRACKS, chartTopTracks})
-
-
 
 export default chartReducer;

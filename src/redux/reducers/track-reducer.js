@@ -1,10 +1,10 @@
 
-const SET_TRACK_NAME = 'SET_TRACK_NAME';
-const SET_TRACK_ARTIST_NAME = 'SET_TRACK_ARTIST_NAME';
-const SET_TRACK_INFO = 'SET_TRACK_INFO';
-const SET_SIMILAR_TRACKS = 'SET_SIMILAR_TRACKS';
-const TRACKS_IS_LOADING = 'TRACKS_IS_LOADING';
-const SET_TRACK_ERROR = 'SET_TRACK_ERROR';
+export const SET_TRACK_NAME = 'SET_TRACK_NAME';
+export const SET_TRACK_ARTIST_NAME = 'SET_TRACK_ARTIST_NAME';
+export const SET_TRACK_INFO = 'SET_TRACK_INFO';
+export const SET_SIMILAR_TRACKS = 'SET_SIMILAR_TRACKS';
+export const TRACKS_IS_LOADING = 'TRACKS_IS_LOADING';
+export const SET_TRACK_ERROR = 'SET_TRACK_ERROR';
 
 let initialState = {
     trackName: null,
@@ -51,13 +51,6 @@ const trackReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setTrackName = (trackName) => ({type: SET_TRACK_NAME, trackName});
-export const setTrackArtistName = (trackArtistName) => ({type: SET_TRACK_ARTIST_NAME, trackArtistName});
-export const setTrackInfo = (trackInfo) => ({type: SET_TRACK_INFO, trackInfo});
-export const setSimilarTracks = (similarTracks) => ({type: SET_SIMILAR_TRACKS, similarTracks});
-export const tracksIsLoading = (bool) => ({type: TRACKS_IS_LOADING, bool});
-export const setTrackError = (error = 'Попробуйте позже') => ({type: SET_TRACK_ERROR, error})
 
 export default trackReducer;
 

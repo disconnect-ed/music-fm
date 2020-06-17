@@ -1,12 +1,23 @@
 import {userAPI} from "../../api/api";
 import {
-    setAuthUserName, setCurrentUser,
-    setLovedTracks, setUserFriends,
-    setUserInfo,
-    setUserKey, setUserLogout,
-    setUserTopAlbums,
-    setUserTopArtists, userFriendsIsLoading, userProfileDataIsLoading
+    SET_AUTH_USER_NAME, SET_CURRENT_USER,
+    SET_LOVED_TRACKS, SET_USER_FRIENDS,
+    SET_USER_INFO,
+    SET_USER_KEY, SET_USER_TOP_ALBUMS,
+    SET_USER_TOP_ARTISTS, USER_FRIENDS_IS_LOADING, USER_LOGOUT, USER_PROFILE_DATA_IS_LOADING
 } from "../reducers/user-reducer";
+
+export const setAuthUserName = (authUserName) => ({type: SET_AUTH_USER_NAME, authUserName});
+export const setUserKey = (userKey) => ({type: SET_USER_KEY, userKey});
+export const setUserInfo = (userInfo) => ({type: SET_USER_INFO, userInfo});
+export const setLovedTracks = (lovedTracks) => ({type: SET_LOVED_TRACKS, lovedTracks});
+export const setUserTopArtists = (userTopArtists) => ({type: SET_USER_TOP_ARTISTS, userTopArtists});
+export const setUserTopAlbums = (userTopAlbums) => ({type: SET_USER_TOP_ALBUMS, userTopAlbums});
+export const setUserFriends = (userFriends) => ({type: SET_USER_FRIENDS, userFriends});
+export const setCurrentUser = (currentUser) => ({type: SET_CURRENT_USER, currentUser})
+export const userFriendsIsLoading = (bool) => ({type: USER_FRIENDS_IS_LOADING, bool})
+export const userProfileDataIsLoading = (bool) => ({type: USER_PROFILE_DATA_IS_LOADING, bool})
+export const setUserLogout = () => ({type: USER_LOGOUT})
 
 export const getUserData = (authUserName, userKey) => {
     return (dispatch) => {

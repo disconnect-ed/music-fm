@@ -1,12 +1,18 @@
 import {trackAPI} from "../../api/api";
 import {
-    setSimilarTracks,
-    setTrackArtistName,
-    setTrackError,
-    setTrackInfo,
-    setTrackName,
-    tracksIsLoading
+    SET_SIMILAR_TRACKS,
+    SET_TRACK_ARTIST_NAME, SET_TRACK_ERROR,
+    SET_TRACK_INFO,
+    SET_TRACK_NAME,
+    TRACKS_IS_LOADING
 } from "../reducers/track-reducer";
+
+export const setTrackName = (trackName) => ({type: SET_TRACK_NAME, trackName});
+export const setTrackArtistName = (trackArtistName) => ({type: SET_TRACK_ARTIST_NAME, trackArtistName});
+export const setTrackInfo = (trackInfo) => ({type: SET_TRACK_INFO, trackInfo});
+export const setSimilarTracks = (similarTracks) => ({type: SET_SIMILAR_TRACKS, similarTracks});
+export const tracksIsLoading = (bool) => ({type: TRACKS_IS_LOADING, bool});
+export const setTrackError = (error = 'Попробуйте позже') => ({type: SET_TRACK_ERROR, error})
 
 export const getTrackParams = (trackName, trackArtistName) => {
     return (dispatch) => {

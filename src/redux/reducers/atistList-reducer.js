@@ -1,8 +1,8 @@
 
-const SET_ARTIST_NAME = 'SET_ARTIST_NAME';
-const SET_ARTIST ='SET_ARTIST';
-const ARTIST_LIST_IS_LOADING ='ARTIST_LIST_IS_LOADING';
-const SET_ARTIST_LIST_ERROR ='SET_ARTIST_LIST_ERROR';
+export const SET_ARTIST_NAME = 'SET_ARTIST_NAME';
+export const SET_ARTIST ='SET_ARTIST';
+export const ARTIST_LIST_IS_LOADING ='ARTIST_LIST_IS_LOADING';
+export const SET_ARTIST_LIST_ERROR ='SET_ARTIST_LIST_ERROR';
 
 let initialState = {
     artistName: '',
@@ -42,11 +42,5 @@ const artistListReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setArtistName = (artistName) => ({type: SET_ARTIST_NAME, artistName});
-export const setArtist = (artist) => ({type: SET_ARTIST, artist});
-export const artistListIsLoading = (bool) => ({type: ARTIST_LIST_IS_LOADING, bool});
-export const setArtistListError = (error = 'Попробуйте позже') => ({type: SET_ARTIST_LIST_ERROR, error});
-
 
 export default artistListReducer

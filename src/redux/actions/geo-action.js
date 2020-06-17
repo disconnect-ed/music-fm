@@ -1,5 +1,8 @@
 import {geoAPI} from "../../api/api";
-import {setGeoTopArtist, setGeoTopTracks} from "../reducers/geo-reducer";
+import {SET_GEO_TOP_ARTISTS, SET_GEO_TOP_TRACKS} from "../reducers/geo-reducer";
+
+export const setGeoTopArtist = (geoTopArtists) => ({type: SET_GEO_TOP_ARTISTS, geoTopArtists});
+export const setGeoTopTracks = (geoTopTracks) => ({type: SET_GEO_TOP_TRACKS, geoTopTracks});
 
 export const getGeoTopArtist = () => {
     return (dispatch) => {

@@ -1,11 +1,11 @@
 
-const SET_ARTIST_INFO = 'SET_ARTIST_INFO';
-const SET_ARTIST_ID = 'SET_ARTIST_ID';
-const SET_ARTIST_SIMILAR = 'SET_ARTIST_SIMILAR';
-const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
-const SET_ARTIST_TOP_ALBUMS = 'SET_ARTIST_TOP_ALBUMS';
-const ARTIST_INFO_IS_LOADING = 'ARTIST_INFO_IS_LOADING';
-const SET_ARTIST_ERROR = 'SET_ARTIST_ERROR';
+export const SET_ARTIST_INFO = 'SET_ARTIST_INFO';
+export const SET_ARTIST_ID = 'SET_ARTIST_ID';
+export const SET_ARTIST_SIMILAR = 'SET_ARTIST_SIMILAR';
+export const SET_ARTIST_TOP_TRACKS = 'SET_ARTIST_TOP_TRACKS';
+export const SET_ARTIST_TOP_ALBUMS = 'SET_ARTIST_TOP_ALBUMS';
+export const ARTIST_INFO_IS_LOADING = 'ARTIST_INFO_IS_LOADING';
+export const SET_ARTIST_ERROR = 'SET_ARTIST_ERROR';
 
 
 let initialState = {
@@ -64,15 +64,5 @@ const artistReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setArtistId = (artistId) => ({type: SET_ARTIST_ID, artistId});
-export const setArtistInfo = (artistInfo) => ({type: SET_ARTIST_INFO, artistInfo});
-export const setArtistSimilar = (artistSimilar) => ({type: SET_ARTIST_SIMILAR, artistSimilar});
-export const setArtistTopTracks = (artistTopTracks) => ({type: SET_ARTIST_TOP_TRACKS, artistTopTracks});
-export const setArtistTopAlbums = (artistTopAlbums) => ({type: SET_ARTIST_TOP_ALBUMS, artistTopAlbums});
-export const artistInfoIsLoading = (bool) => ({type: ARTIST_INFO_IS_LOADING, bool});
-export const setArtistError = (error = 'Попробуйте позже') => ({type: SET_ARTIST_ERROR, error})
-
-
 
 export default artistReducer;

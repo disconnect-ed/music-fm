@@ -1,8 +1,8 @@
 
-const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
-const SET_AUTH_HASH = 'SET_AUTH_HASH';
-const SET_SESSION_KEY = 'SET_SESSION_KEY';
-const SET_AUTH_USER = 'SET_AUTH_USER';
+export const SET_AUTH_TOKEN = 'SET_AUTH_TOKEN';
+export const SET_AUTH_HASH = 'SET_AUTH_HASH';
+export const SET_SESSION_KEY = 'SET_SESSION_KEY';
+export const SET_AUTH_USER = 'SET_AUTH_USER';
 
 let initialState = {
     apiKey: 'a1976dd334d85d2a880225cfe49e652c',
@@ -39,10 +39,5 @@ const authReducer = (state = initialState, action) => {
             return state
     }
 }
-
-export const setAuthHash = (authHash) => ({type: SET_AUTH_HASH, authHash});
-export const setAuthToken = (authToken) => ({type: SET_AUTH_TOKEN, authToken});
-export const setSessionKey = (sessionKey) => ({type: SET_SESSION_KEY, sessionKey});
-export const setAuthUser = (authUser) => ({type: SET_AUTH_USER, authUser});
 
 export default authReducer;
