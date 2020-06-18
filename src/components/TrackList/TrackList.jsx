@@ -21,7 +21,7 @@ const TrackList = (props) => {
                         <th>Слушателей</th>
                     </tr>
                     {props.trackList.map(result => {
-                        return <tr>
+                        return <tr key={props.trackList.indexOf(result)}>
                             <td><img src={Object.values(result.image[0])[0]} alt=""/></td>
                             <td><NavLink to={`/tracks/${result.artist}/${result.name}`}>{result.name}</NavLink></td>
                             <td>

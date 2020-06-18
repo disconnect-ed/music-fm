@@ -28,7 +28,7 @@ const ArtistInfo = (props) => {
                             </p>
                             <p className="text-lg-left text-center">
                                 Жанр: {props.artistInfo.tags.tag.map(result => {
-                                return <b>{result.name}, </b>
+                                return <b key={result.name}>{result.name}, </b>
                             })}
                             </p>
                             <p className="text-lg-left text-center">

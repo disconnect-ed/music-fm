@@ -14,7 +14,7 @@ const ArtistSimilar = (props) => {
                 <h2 className="artist-similar__title mb-4">Похожие исполнители</h2>
                 <div className="row">
                     {props.artistSimilar.map(result => {
-                        return <div className="col-lg-4 col-md-6 mb-3">
+                        return <div key={props.artistSimilar.indexOf(result)} className="col-lg-4 col-md-6 mb-3">
                             <div className="artist-similar-info">
                                     <span className="artist-similar-info__img pr-3">
                                         <NavLink onClick={onClick} to={result.mbid ? `/artists/${result.mbid}` : '#'} >

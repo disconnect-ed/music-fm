@@ -17,7 +17,7 @@ const Tracks = (props) => {
                         {props.deleteListeners ? '' : <th>Слушателей</th>}
                     </tr>
                     {props.trackList.map(result => {
-                        return <tr>
+                        return <tr key={props.trackList.indexOf(result)}>
                             <td><img src={result.image[0]['#text']} alt=""/></td>
                             <td><NavLink to={`/tracks/${result.artist.name}/${result.name}`}>{result.name}</NavLink>
                             </td>

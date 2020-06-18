@@ -13,7 +13,7 @@ const Albums = (props) => {
                 <div className="row">
                     {props.albumsList.map(result => {
                         const imgSrc = result.image[2]['#text'];
-                        return <div className="col-lg-3 col-md-4 col-sm-6 col-12 mb-5">
+                        return <div key={props.albumsList.indexOf(result)} className="col-lg-3 col-md-4 col-sm-6 col-12 mb-5">
                             <div className="artistslist-card">
                                 <div className="card__img">
                                     <NavLink to={result.mbid ? `/albums/${result.mbid}` : '#'}>

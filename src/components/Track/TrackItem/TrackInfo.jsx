@@ -38,7 +38,7 @@ const TrackInfo = (props) => {
                         </p>
                         <p className="text-lg-left text-center">
                             Жанр: {props.trackInfo.toptags.tag.map(result => {
-                            return <b>{result.name}, </b>
+                            return <b key={result.name}>{result.name}, </b>
                         })}
                         </p>
                     </div>

@@ -10,7 +10,7 @@ const Friends = (props) => {
                 <div className="row">
                     {props.friendsList.map(result => {
                         const imgSrc = result.image[2]['#text'];
-                        return <div className="col-12 mb-5 text-center text-sm-left">
+                        return <div key={props.friendsList.indexOf(result)} className="col-12 mb-5 text-center text-sm-left">
                             <div className="row">
                                 <div className="col-12 col-sm-5 col-md-5 col-lg-3 text-center">
                                     <NavLink to={`/user/profile/${result.name}`}>

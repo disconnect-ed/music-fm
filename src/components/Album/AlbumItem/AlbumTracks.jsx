@@ -15,7 +15,7 @@ const AlbumTracks = (props) => {
                     <th>Исполнитель</th>
                 </tr>
                 {props.albumTracks.map(result => {
-                    return <tr>
+                    return <tr key={props.albumTracks.indexOf(result)}>
                         <td><b>{props.albumTracks.indexOf(result) + 1}</b></td>
                         <td><NavLink to={`/tracks/${result.artist.name}/${result.name}`}>{result.name}</NavLink></td>
                         <td><NavLink to={`/artists/${result.artist.mbid}`}>{result.artist.name}</NavLink></td>
